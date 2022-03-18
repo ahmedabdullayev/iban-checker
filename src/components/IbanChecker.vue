@@ -11,6 +11,7 @@
     <div v-show="right===false" class="alert alert-danger mt-2 mb-2" role="alert">
       This is a danger alert—check it out!
     </div>
+    <input type="file" v-on:change="handleFileUpload" >
     <button type="submit" class="btn btn-primary mb-3" v-on:click="checkIban">Confirm</button>
   </form>
 </div>
@@ -25,10 +26,12 @@ export default defineComponent({
   data() : {
     right: null | boolean
     iban: string
+    file: string[]
   }{
     return {
       iban: "",
-      right: null
+      right: null,
+      file: []
     };
   },
   methods:{
@@ -42,7 +45,34 @@ export default defineComponent({
         document.querySelector('#floatingInputIban')!.classList.add("fail")
       }
     },
+    async handleFileUpload(e : any){
+      let files = e.target!.files
+      const fileReader = new FileReader()
+
+      fileReader.readAsText(files[0]);
+       fileReader.onload= async ()=>  {
+        let fileRes : string = fileReader!.result!.toString();
+        this.file = fileRes.split('\r\n')
+         const obj : {
+           [key: string]: boolean,
+         }[] = [];
+
+         this.file.forEach((el:any) => {
+           let myObj : { [key: string]: boolean } = {}
+           let isTrue = validIban(el)
+           myObj[el] = isTrue
+           obj.push(myObj)
+         })
+
+          obj.forEach((item : any)=>{
+            const array = Object.entries(item)
+            console.log(array[0][0], array[0][1])
+          })
+         console.log(obj)
+      }
+    },
     removeFeedbacks(){
+      this.right = null;
       document.querySelector('#floatingInputIban')!.classList.remove('fail')
       document.querySelector('#floatingInputIban')!.classList.remove('success')
     }
