@@ -7,12 +7,12 @@
       <label for="floatingInputIban">IBAN</label>
     </div>
     <div v-show="right" class="alert alert-success mt-2 mb-2" role="alert">
-      This is a success alert—check it out!
+      IBAN is correct!
     </div>
     <div v-show="right===false" class="alert alert-danger mt-2 mb-2" role="alert">
-      This is a danger alert—check it out!
+      IBAN is wrong!
     </div>
-    <button type="submit" class="btn btn-primary mb-3" id="btn-submit" v-on:click="checkIban">Confirm</button>
+    <button type="submit" class="btn btn-success mb-3 check-btn" id="btn-submit" v-on:click="checkIban">Check</button>
   </form>
 
 
