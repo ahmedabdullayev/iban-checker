@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
+    <router-link to="/">Single check</router-link> |
+    <router-link to="/list-upload">List check</router-link>
   </div>
   <router-view/>
 </template>

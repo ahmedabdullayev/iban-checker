@@ -2,6 +2,7 @@
 <div class="container">
   <form v-on:submit.prevent>
     <div class="form-floating mb-1">
+
       <input v-on:keypress="removeFeedbacks" type="text" class="form-control" id="floatingInputIban" placeholder="IBAN" v-model="iban">
       <label for="floatingInputIban">IBAN</label>
     </div>
@@ -11,70 +12,52 @@
     <div v-show="right===false" class="alert alert-danger mt-2 mb-2" role="alert">
       This is a danger alert—check it out!
     </div>
-    <input type="file" v-on:change="handleFileUpload" >
-    <button type="submit" class="btn btn-primary mb-3" v-on:click="checkIban">Confirm</button>
+    <button type="submit" class="btn btn-primary mb-3" id="btn-submit" v-on:click="checkIban">Confirm</button>
   </form>
+
+
 </div>
 
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import validIban from './iban-checker'
+import validIban from '../services/iban-checker'
 export default defineComponent({
   name: 'HelloWorld',
   data() : {
     right: null | boolean
     iban: string
-    file: string[]
   }{
     return {
       iban: "",
       right: null,
-      file: []
     };
   },
   methods:{
     checkIban(){
       this.right = validIban(this.iban)
+      const input = document.querySelector('#floatingInputIban')
+
       if(this.right ===  true){
-        document.querySelector('#floatingInputIban')!.classList.remove('fail')
-        document.querySelector('#floatingInputIban')!.classList.add("success")
+        if(input != null) {
+          input.classList.remove('fail')
+          input.classList.add("success")
+        }
       }else{
-        document.querySelector('#floatingInputIban')!.classList.remove('success')
-        document.querySelector('#floatingInputIban')!.classList.add("fail")
-      }
-    },
-    async handleFileUpload(e : any){
-      let files = e.target!.files
-      const fileReader = new FileReader()
-
-      fileReader.readAsText(files[0]);
-       fileReader.onload= async ()=>  {
-        let fileRes : string = fileReader!.result!.toString();
-        this.file = fileRes.split('\r\n')
-         const obj : {
-           [key: string]: boolean,
-         }[] = [];
-
-         this.file.forEach((el:any) => {
-           let myObj : { [key: string]: boolean } = {}
-           let isTrue = validIban(el)
-           myObj[el] = isTrue
-           obj.push(myObj)
-         })
-
-          obj.forEach((item : any)=>{
-            const array = Object.entries(item)
-            console.log(array[0][0], array[0][1])
-          })
-         console.log(obj)
+        if(input != null){
+          input.classList.remove('success')
+          input.classList.add("fail")
+        }
       }
     },
     removeFeedbacks(){
       this.right = null;
-      document.querySelector('#floatingInputIban')!.classList.remove('fail')
-      document.querySelector('#floatingInputIban')!.classList.remove('success')
+      const input = document.querySelector('#floatingInputIban')
+      if(input != null){
+        input.classList.remove('fail')
+        input.classList.remove('success')
+      }
     }
   },
 });
