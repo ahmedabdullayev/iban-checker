@@ -3,6 +3,7 @@
 ### Technologies
 - Vue 3
 - TypeScript
+- Jest
 
 ### How to use?
 There is two pages, one is for single IBAN input, second is for uploading text file with IBANs(one IBAN per line in .txt file)
