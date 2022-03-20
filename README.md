@@ -14,7 +14,7 @@ There is two pages, one is for single IBAN input, second is for uploading text f
 - List of IBANs check
 
 ### Instructions
-- To run test use: npm run test:unit
+- To run tests use: first download my project, then use commands: npm install, npm run server, npm run test:unit
 - To run my app on your computer - go to https://keen-wiles-3b7173.netlify.app/ : or download my project from Github
 ### Text file upload with IBANs (1 IBAN per line)
 ![](listUpload.png)
@@ -31,16 +31,15 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
 ### Run your unit tests
 ```
 npm run test:unit
 ```
 
+### Compiles and minifies for production
+```
+npm run build
+```
 ### Lints and fixes files
 ```
 npm run lint
