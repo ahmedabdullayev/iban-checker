@@ -20,12 +20,13 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import validIban from "@/services/iban-checker";
+import Iban from "@/types/Iban";
 
 export default defineComponent({
   name: "IbanListChecker",
   data() : {
     file: string[]
-    filteredObject: {[key: string]: boolean}
+    filteredObject: Iban
   }{
     return {
       file: [],
@@ -46,7 +47,7 @@ export default defineComponent({
         let fileRes : string = fileReader!.result!.toString();
         this.file = fileRes.split('\r\n')
         this.file.forEach((el:any) => {
-          let isTrue = validIban(el)
+          let isTrue = validIban(el.trim())
           this.filteredObject[el] = isTrue
         })
       }
