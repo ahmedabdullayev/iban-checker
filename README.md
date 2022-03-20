@@ -16,8 +16,9 @@ There is two pages, one is for single IBAN input, second is for uploading text f
 ### Instructions
 - To run test use: npm run test:unit
 - To run my app on your computer - go to https://keen-wiles-3b7173.netlify.app/ : or download my project from Github
-
+### Text file upload with IBANs (1 IBAN per line)
 ![](listUpload.png)
+### Single Iban check
 ![](singleCheck.png)
 
 ## Project setup
